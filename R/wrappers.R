@@ -1,17 +1,19 @@
 
 
 
-populate_header_module <- function(input, output, session, username = "unknown"){
+username_module <- function(input, output, session, username = "unknown"){
 
   output$txt_username <- renderText({
-    paste("Ingelogd als", username)
+    username
   })
 
 }
 
 populate_header <- function(username){
 
-  callModule(populate_header_module, "shintoui")
+  callModule(username_module, "shintoui", username = "Shinto Labs")
+
+  callModule(shintoshiny::appInfoModule, "appinfo")
 
 }
 
@@ -22,29 +24,40 @@ dashboard_header <- function(title = "Shinto app framework",
                              icon = shiny::icon("home"),
                              ...){
   bs4Dash::dashboardHeader(
-    #sidebarIcon = icon,
+
     title = tagList(
       span(icon, class = "brand-image elevation-3", style = "padding-top: 8px;"),
       span(class = "brand-text font-weight-light", title),
-    )
+    ),
 
-#     rightUi = tagList(...,
-#
-#                       bs4Dash::dropdownMenu(type = "notifications",
-#                                                    icon =  shiny::icon("user"),
-#                                                    headerText = "Profiel",
-#                                                    badgeStatus = NULL,
-#                                                    bs4Dash::notificationItem(
-#                                                      text = textOutput("shintoui-txt_username"),
-#                                                      shiny::icon("user")
-#                                                    ),
-#                                                    bs4Dash::notificationItem(
-#                                                      text = "Log uit",
-#                                                      shiny::icon("sign-out"),
-#                                                      href="__logout__"
-#                                                    )
-#                       )
-#                       )
+    rightUi = tagList(...,
+
+
+                      tags$li(class = "dropdown",
+
+                              # About Menu
+                              tags$a(href="#",
+                                     class="nav-link",
+                                     `data-toggle` = "dropdown",
+                                     bsicon("info-circle")
+                              ),
+                              tags$ul(class="dropdown-menu aboutmenu",
+                                      style = "min-width: 300px; padding: 25px;",
+                                      shintoshiny::appInfoUI("appinfo")
+                              )
+                      ),
+
+                      bs4Dash::dropdownMenu(type = "notifications",
+                                                   icon =  bsicon("person-circle"),
+                                                   headerText = textOutput("shintoui-txt_username", inline = TRUE),
+                                                   badgeStatus = NULL,
+                                                   bs4Dash::notificationItem(
+                                                     text = "Log uit",
+                                                     bsicon("box-arrow-right"),
+                                                     href="__logout__"
+                                                   )
+                      )
+                      )
   )
 }
 
@@ -87,8 +100,8 @@ dashboard_body <- function(...,
     # Loading bar, loading screen
     shinybusy::add_busy_bar(color = busybar_color, height = "6px"),
 
-    #shintoshiny::loadingscreen(time = loadingscreen_time),
-    #shintoshiny::disconnect_message(disconnect_message),
+    shintoshiny::loadingscreen(time = loadingscreen_time),
+    shintoshiny::disconnect_message(disconnect_message),
     ...)
 }
 

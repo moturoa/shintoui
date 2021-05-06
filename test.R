@@ -32,7 +32,12 @@ ui <- dashboard_page(
   body = body
 )
 
-shinyApp(ui = ui, server = function(input, output, session){
+server <- function(input, output, session){
 
-})
+  populate_header()
+
+}
+
+shinyApp(ui = ui,
+         server = server)
 

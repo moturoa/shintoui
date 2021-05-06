@@ -1,0 +1,10 @@
+# Voor ophalen klant-specifieke configs
+klant: "Eindhoven"
+
+# Alleen voor shinyproxy auth
+ad_group: "EINDHOVEN_WBM"
+
+# Versie (voor dropdown menu en shinyproxy)
+appname: "Shinto App Framework"
+appversion: "0.0"
+appversiondate: "2020-10-30"
