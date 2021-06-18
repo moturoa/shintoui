@@ -113,6 +113,8 @@ dashboard_body <- function(...,
 
     tags$head(
       HTML('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">'),
+      HTML('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">'),
+
       tags$script(
         HTML('@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");')
       )
@@ -137,7 +139,7 @@ dashboard_body <- function(...,
 #' @param title Title of the box
 #' @param icon Icon to be placed to the left of title (must use e.g. icon("home"))
 #' @export
-box <- function(title = "", icon = NULL, ...){
+box <- function(title = "",  ..., icon = NULL){
 
   bs4Dash::box(title = tagList(icon, title), ...)
 
@@ -156,7 +158,7 @@ tab_box <- function(...){
 #' @export
 tab_panel <- function(...){
 
-  shiny::tab_panel(...)
+  shiny::tabPanel(...)
 
 }
 

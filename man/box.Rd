@@ -4,7 +4,7 @@
 \alias{box}
 \title{Make a content box for a shiny app}
 \usage{
-box(title = "", icon = NULL, ...)
+box(title = "", ..., icon = NULL)
 }
 \arguments{
 \item{title}{Title of the box}
