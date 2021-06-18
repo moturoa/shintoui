@@ -9,25 +9,35 @@ username_module <- function(input, output, session, username = "unknown"){
 
 }
 
+#' Write header information
+#' @description Writes logout menu, app info menu, etc.
+#' @param username Current username (for logout menu)
+#' @export
 populate_header <- function(username){
 
-  callModule(username_module, "shintoui", username = "Shinto Labs")
+  callModule(username_module, "shintoui", username = username)
 
-  callModule(shintoshiny::appInfoModule, "appinfo")
+  #callModule(appInfoModule, "appinfo")
 
 }
 
 
 
-
+#' Make the header UI for a Shinto app
+#' @param title Title of the application (top-left)
+#' @param icon Icon next to title
+#' @param \dots Further UI elements to be placed in the right part of the header
+#' @export
 dashboard_header <- function(title = "Shinto app framework",
                              icon = shiny::icon("home"),
                              ...){
   bs4Dash::dashboardHeader(
 
+    status = "white",
+
     title = tagList(
-      span(icon, class = "brand-image elevation-3", style = "padding-top: 8px;"),
-      span(class = "brand-text font-weight-light", title),
+      span(icon, style = "padding-top: 8px; padding-left: 16px;"),  #class = "brand-image elevation-3",
+      span(class = "brand-text", title),
     ),
 
     rightUi = tagList(...,
@@ -39,11 +49,11 @@ dashboard_header <- function(title = "Shinto app framework",
                               tags$a(href="#",
                                      class="nav-link",
                                      `data-toggle` = "dropdown",
-                                     bsicon("info-circle")
+                                     tags$span(bsicon("info-circle"), style = "font-weight: 600;")
                               ),
                               tags$ul(class="dropdown-menu aboutmenu",
                                       style = "min-width: 300px; padding: 25px;",
-                                      shintoshiny::appInfoUI("appinfo")
+                                      appInfoUI("appinfo")
                               )
                       ),
 
@@ -61,14 +71,22 @@ dashboard_header <- function(title = "Shinto app framework",
   )
 }
 
+#' Make a sidebar for a Shinto app
+#' @param \dots All arguments passed to bs4Dash::sidebarMenu
+#' @export
 dashboard_sidebar <- function(...){
-  bs4Dash::dashboardSidebar(
+  bs4Dash::dashboardSidebar(skin = "light",
     bs4Dash::sidebarMenu(
       ...
     )
   )
 }
 
+#' Make a Menu item for a Shinto app
+#' @param text Text to be displayed in the menu
+#' @param icon Icon for menu item (must use e.g. icon("home"))
+#' @param tabName Name of the tab, must refer to a tabitem.
+#' @export
 menu_item <- function(text, icon, tabName, ...){
 
   bs4Dash::menuItem(text = text, icon = icon, tabName = tabName, ...)
@@ -76,7 +94,17 @@ menu_item <- function(text, icon, tabName, ...){
 }
 
 
-
+#' Make a body for a Shinto app bs4Dash::dashboardBody with various common dependencies (shinyjs, shinytoastr,
+#' bootstrap icons, etc.)
+#' @description Wrapper around
+#' @param \dots UI arguments passed to bs4Dash::dashboardBody
+#' @param busybar_color Color of 'busy bar' (not yet implemented)
+#' @param loadingscreen_time Loading time (not yet implemented)
+#' @param disconnect_message Message for disconnect popup
+#' @importFrom shinybusy add_busy_bar
+#' @importFrom shinyjs useShinyjs
+#' @importFrom shinytoastr useToastr
+#' @export
 dashboard_body <- function(...,
                            busybar_color = "#53C082",
                            loadingscreen_time = 2,
@@ -91,8 +119,8 @@ dashboard_body <- function(...,
     ),
 
 
-    useShinyjs(),
-    useToastr(),
+    shinyjs::useShinyjs(),
+    shinytoastr::useToastr(),
 
     # Nodig voor app info dropdown
     #shintoshiny::shintoshiny_dependencies(),
@@ -100,40 +128,56 @@ dashboard_body <- function(...,
     # Loading bar, loading screen
     shinybusy::add_busy_bar(color = busybar_color, height = "6px"),
 
-    shintoshiny::loadingscreen(time = loadingscreen_time),
-    shintoshiny::disconnect_message(disconnect_message),
+    #shintoshiny::loadingscreen(time = loadingscreen_time),
+    #shintoshiny::disconnect_message(disconnect_message),
     ...)
 }
 
-box <- function(...){
+#' Make a content box for a shiny app
+#' @param title Title of the box
+#' @param icon Icon to be placed to the left of title (must use e.g. icon("home"))
+#' @export
+box <- function(title = "", icon = NULL, ...){
 
-  bs4Dash::box(...)
+  bs4Dash::box(title = tagList(icon, title), ...)
 
 }
 
+#' Various tab item, menu, wrapper functions
+#' @rdname tabwrappers
+#' @export
 tab_box <- function(...){
 
   bs4Dash::bs4TabCard(...)
 
 }
 
+#' @rdname tabwrapper
+#' @export
 tab_panel <- function(...){
 
   shiny::tab_panel(...)
 
 }
 
+#' @rdname tabwrapper
+#' @export
 tab_items <- function(...){
 
   bs4Dash::tabItems(...)
 
 }
+
+#' @rdname tabwrapper
+#' @export
 tab_item <- function(tabName, ...){
 
   bs4Dash::tabItem(tabName = tabName, ...)
 
 }
 
+#' Make a dashboard page for a Shinto app
+#' @export
 dashboard_page <- function(header, sidebar, body, ...){
 
 
@@ -154,6 +198,9 @@ dashboard_page <- function(header, sidebar, body, ...){
 
 
 bsicon <- function(iconname, class = NULL, ...){
+
+  if(iconname == "refresh")iconname <- "arrow-clockwise"
+  if(iconname == "home")iconname <- "house"
 
   iconClass <- paste0("bi-",iconname)
 

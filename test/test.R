@@ -1,0 +1,72 @@
+
+library(shintoui)
+
+.info <- shintoui::read_application_info()
+
+header <- dashboard_header(title = "AdminLTE 3",
+                           icon = bsicon("palette-fill"))
+
+sidebar <- dashboard_sidebar(
+  menu_item("Menu 1", bsicon("tree"), "menu1"),
+  menu_item("Analyses", bsicon("bar-chart"), "analyses")
+)
+
+body <- dashboard_body(
+
+  loadingscreen_time = 1,
+
+
+  shintoui::tab_items(
+    shintoui::tab_item("menu1",
+
+
+             shintoui::box(
+               title = "Analyses",
+               icon = bsicon("graph-up"),
+               solidHeader = TRUE,
+               status = "primary",
+               maximizable = TRUE,
+
+               tags$p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dictum urna in tempus viverra. Fusce eleifend, urna eu fermentum tincidunt, nisi felis consectetur ex, eu ornare lorem ipsum ut dui. Curabitur accumsan luctus lectus, eget suscipit est hendrerit quis. Orci varius natoque penatibus et magnis dis parturient montes,
+                      nascetur ridiculus mus. Morbi interdum ultricies risus, non viverra sem aliquam ac.")
+             )
+
+
+             ),
+    shintoui::tab_item("analyses",
+
+             shintoui::box(
+               title = "Locaties",
+               icon = bsicon("geo-alt-fill"),
+               solidHeader = TRUE,
+               status = "success",
+               closable = TRUE,
+
+               leafletOutput("mapout"),
+               actionButton("btn1", "Button", class = "btn-primary", icon = bsicon("check"))
+             )
+    )
+  )
+)
+
+ui <- dashboard_page(
+  header = header,
+  sidebar = sidebar,
+  body = body
+)
+
+server <- function(input, output, session){
+
+  populate_header(username = "test user")
+
+  output$mapout <- renderLeaflet({
+    leaflet() %>%
+      addTiles() %>%
+      addMarkers(data = data.frame(lat = 51, lon = 4.5))
+  })
+
+}
+
+shinyApp(ui = ui,
+         server = server)
+
