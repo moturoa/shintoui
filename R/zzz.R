@@ -3,7 +3,7 @@
     prefix = "assets",
     directoryPath = system.file(
       "assets",
-      package = "shintoshiny"
+      package = "shintoui"
     )
   )
 }
