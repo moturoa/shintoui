@@ -16,7 +16,7 @@ dashboard_body(
 \arguments{
 \item{\dots}{UI arguments passed to bs4Dash::dashboardBody}
 
-\item{busybar_color}{Color of 'busy bar' (not yet implemented)}
+\item{busybar_color}{Color of 'busy bar'}
 
 \item{loadingscreen_time}{Loading time (not yet implemented)}
 

@@ -98,7 +98,7 @@ menu_item <- function(text, icon, tabName, ...){
 #' bootstrap icons, etc.)
 #' @description Wrapper around
 #' @param \dots UI arguments passed to bs4Dash::dashboardBody
-#' @param busybar_color Color of 'busy bar' (not yet implemented)
+#' @param busybar_color Color of 'busy bar'
 #' @param loadingscreen_time Loading time (not yet implemented)
 #' @param disconnect_message Message for disconnect popup
 #' @importFrom shinybusy add_busy_bar
@@ -113,7 +113,8 @@ dashboard_body <- function(...,
 
     tags$head(
       HTML('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">'),
-      HTML('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">'),
+      HTML(paste('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"',
+                  'integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">')),
 
       tags$script(
         HTML('@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");')

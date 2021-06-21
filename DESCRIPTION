@@ -1,10 +1,11 @@
 Package: shintoui
 Type: Package
 Title: UI Framework for Shinto apps (V2)
-Version: 0.1.0
+Version: 0.1.2
 Author: Remko Duursma
 Maintainer: Remko Duursma <remkoduursma@gmail.com>
 Description: Latest UI choices for Shinto apps. Moving beyond bootstrap 3.
+Depends: bs4Dash, shinytoastr
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
