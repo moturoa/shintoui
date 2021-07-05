@@ -76,7 +76,8 @@ body <- dashboard_body(
 ui <- dashboard_page(
   header = header,
   sidebar = sidebar,
-  body = body
+  body = body,
+  controlbar = dashboardControlbar(skinSelector(), pinned = TRUE)
 )
 
 server <- function(input, output, session){

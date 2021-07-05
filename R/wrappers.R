@@ -233,7 +233,8 @@ dashboard_page <- function(header, sidebar, body, ...){
 
     fullscreen = FALSE,
     dark = NULL,
-    scrollToTop = FALSE
+    scrollToTop = FALSE,
+    ...
   )
 
 }
