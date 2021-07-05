@@ -1,25 +1,6 @@
 
 
 
-username_module <- function(input, output, session, username = "unknown"){
-
-  output$txt_username <- renderText({
-    paste("Ingelogd als:", username)
-  })
-
-}
-
-#' Write header information
-#' @description Writes logout menu, app info menu, etc.
-#' @param username Current username (for logout menu)
-#' @export
-populate_header <- function(username){
-
-  callModule(username_module, "shintoui", username = username)
-
-  callModule(shintoshiny::appInfoModule, "appinfo")
-
-}
 
 
 
@@ -53,6 +34,7 @@ dashboard_header <- function(title = "Shinto app framework",
                               tags$a(href="#",
                                      class="nav-link",
                                      `data-toggle` = "dropdown",
+                                     title = "Applicatie informatie",
                                      tags$span(bsicon("info-circle"),
                                                style = "font-weight: 800; font-size: 1.1em;")
                               ),
@@ -61,6 +43,15 @@ dashboard_header <- function(title = "Shinto app framework",
                                       shintoshiny::appInfoUI("appinfo")
                               )
                       ),
+
+                      tags$li(class = "nav-item dropdown",
+                        tags$a(href = "https://shintolabs.atlassian.net/servicedesk",
+                          target = "_blank",
+                          class = "nav-link",
+                          bsicon("question-circle-fill"),
+                          title = "Service Desk"),
+                     ),
+
 
                       bs4Dash::dropdownMenu(type = "notifications",
                                                    icon =  bsicon("person-circle"),
@@ -218,24 +209,13 @@ dashboard_page <- function(header, sidebar, body, ...){
 
 
 
-bsicon <- function(iconname, class = NULL, ...){
+#' Render a dashboard menu
+#' @export
+render_menu <- function(...){
 
-  if(iconname == "refresh")iconname <- "arrow-clockwise"
-  if(iconname == "home")iconname <- "house"
+  bs4Dash::renderMenu(...)
 
-  iconClass <- paste0("bi-",iconname)
-
-  if(!is.null(class)){
-    iconClass <- paste(iconClass, class)
-  }
-
-  tags$i(class = iconClass, role = "presentation",
-         `aria-label` = paste(iconname, "icon"), ...)
 }
-
-
-
-
 
 
 
