@@ -1,13 +1,16 @@
 
 library(shintoui)
-
+library(glue)
 library(leaflet)
 library(DT)
 
-.info <- shintoui::read_application_info()
+.info <- shintoshiny::read_application_info()
 
 header <- dashboard_header(title = "AdminLTE 3",
-                           icon = bsicon("palette-fill"))
+                           icon = bsicon("palette-fill"),
+                           tag_line = "Een nieuw framework met Bootstrap4",
+                           tags$li(class="dropdown",tags$div(id = "clock",
+                                                             style="padding: 0.5rem;")))
 
 sidebar <- dashboard_sidebar(
   menu_item("Menu 1", bsicon("tree"), "menu1"),
@@ -17,7 +20,7 @@ sidebar <- dashboard_sidebar(
 body <- dashboard_body(
 
   loadingscreen_time = 1,
-
+  clock = TRUE,
 
   shintoui::tab_items(
     shintoui::tab_item("menu1",
@@ -78,7 +81,7 @@ ui <- dashboard_page(
 
 server <- function(input, output, session){
 
-  populate_header(username = "test user")
+  shintoui::populate_header(username = shintoshiny::get_user("devuser"))
 
   output$mapout <- renderLeaflet({
     leaflet() %>%

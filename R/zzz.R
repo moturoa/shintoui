@@ -1,6 +1,6 @@
 .onLoad <- function(libname, pkgname) {
   shiny::addResourcePath(
-    prefix = "assets",
+    prefix = "shintoui_assets",
     directoryPath = system.file(
       "assets",
       package = "shintoui"

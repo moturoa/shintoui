@@ -8,6 +8,7 @@ bootstrap icons, etc.)}
 dashboard_body(
   ...,
   busybar_color = "#53C082",
+  clock = TRUE,
   loadingscreen_time = 2,
  
     disconnect_message = "Oeps, er ging iets fout! Herlaad de pagina en probeer het nog een keer."

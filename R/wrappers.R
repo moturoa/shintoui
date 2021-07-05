@@ -4,7 +4,7 @@
 username_module <- function(input, output, session, username = "unknown"){
 
   output$txt_username <- renderText({
-    username
+    paste("Ingelogd als:", username)
   })
 
 }
@@ -17,7 +17,7 @@ populate_header <- function(username){
 
   callModule(username_module, "shintoui", username = username)
 
-  #callModule(appInfoModule, "appinfo")
+  callModule(shintoshiny::appInfoModule, "appinfo")
 
 }
 
@@ -30,6 +30,7 @@ populate_header <- function(username){
 #' @export
 dashboard_header <- function(title = "Shinto app framework",
                              icon = shiny::icon("home"),
+                             tag_line = "",
                              ...){
   bs4Dash::dashboardHeader(
 
@@ -40,20 +41,24 @@ dashboard_header <- function(title = "Shinto app framework",
       span(class = "brand-text", title),
     ),
 
+    leftUi = tags$li(tags$i(tag_line), class = "dropdown",
+                     style = "padding-top: 8px; padding-left: 24px;"),
+
     rightUi = tagList(...,
 
 
-                      tags$li(class = "dropdown",
+                      tags$li(class = "nav-item dropdown",
 
                               # About Menu
                               tags$a(href="#",
                                      class="nav-link",
                                      `data-toggle` = "dropdown",
-                                     tags$span(bsicon("info-circle"), style = "font-weight: 600;")
+                                     tags$span(bsicon("info-circle"),
+                                               style = "font-weight: 800; font-size: 1.1em;")
                               ),
                               tags$ul(class="dropdown-menu aboutmenu",
                                       style = "min-width: 300px; padding: 25px;",
-                                      appInfoUI("appinfo")
+                                      shintoshiny::appInfoUI("appinfo")
                               )
                       ),
 
@@ -78,6 +83,11 @@ dashboard_sidebar <- function(...){
   bs4Dash::dashboardSidebar(skin = "light",
     bs4Dash::sidebarMenu(
       ...
+    ),
+    tags$div(
+      style = "position: fixed; bottom: 16px; left: 16px;",
+      tags$img(src = "shintoui_assets/logo/logoshintolabs96.png",
+               width = "24px")
     )
   )
 }
@@ -107,6 +117,7 @@ menu_item <- function(text, icon, tabName, ...){
 #' @export
 dashboard_body <- function(...,
                            busybar_color = "#53C082",
+                           clock = TRUE,
                            loadingscreen_time = 2,
                            disconnect_message = "Oeps, er ging iets fout! Herlaad de pagina en probeer het nog een keer."){
   bs4Dash::dashboardBody(
@@ -122,17 +133,24 @@ dashboard_body <- function(...,
     ),
 
 
+
     shinyjs::useShinyjs(),
     shinytoastr::useToastr(),
 
     # Nodig voor app info dropdown
-    #shintoshiny::shintoshiny_dependencies(),
+    shintoshiny::shintoshiny_dependencies(),
+
+    shintoui::shintoui_dependencies(),
+
+    if(clock){
+      includeScript(system.file("assets/clock/clock.js", package = "shintoui"))
+    },
 
     # Loading bar, loading screen
     shinybusy::add_busy_bar(color = busybar_color, height = "6px"),
 
-    #shintoshiny::loadingscreen(time = loadingscreen_time),
-    #shintoshiny::disconnect_message(disconnect_message),
+    shintoshiny::loadingscreen(time = loadingscreen_time),
+    shintoshiny::disconnect_message(disconnect_message),
     ...)
 }
 

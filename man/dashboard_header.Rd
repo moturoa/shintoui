@@ -7,6 +7,7 @@
 dashboard_header(
   title = "Shinto app framework",
   icon = shiny::icon("home"),
+  tag_line = "",
   ...
 )
 }
