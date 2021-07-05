@@ -13,6 +13,16 @@ devtools::install_github("moturoa/shintoui")
 
 Clone this repo, open `test/test.R` and Run App.
 
+
+## Switching to shintoui
+
+- Do not load `shinydashboard` or `shinydashboardPlus`
+- Use the following functions **only** instead of equivalents in those packages:
+
+`shintoui::box`
+`shintoui::tab_box`
+
+
 ## Contact
 
 Remko Duursma

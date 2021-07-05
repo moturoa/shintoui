@@ -4,7 +4,7 @@ Title: UI Framework for Shinto apps (V2)
 Version: 0.1.2
 Author: Remko Duursma
 Maintainer: Remko Duursma <remkoduursma@gmail.com>
-Description: Latest UI choices for Shinto apps. Moving beyond bootstrap 3.
+Description: A UI framework for Shinto apps with AdminLTE3, Bootstrap4, using bs4Dash.
 Depends: bs4Dash, shinytoastr
 License: GPL-2
 Encoding: UTF-8

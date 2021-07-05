@@ -8,13 +8,13 @@ library(DT)
 
 header <- dashboard_header(title = "AdminLTE 3",
                            icon = bsicon("palette-fill"),
-                           tag_line = "Een nieuw framework met Bootstrap4",
-                           tags$li(class="dropdown",tags$div(id = "clock",
-                                                             style="padding: 0.5rem;")))
+                           tag_line = "Een nieuw framework met Bootstrap4")
 
 sidebar <- dashboard_sidebar(
-  menu_item("Menu 1", bsicon("tree"), "menu1"),
-  menu_item("Analyses", bsicon("bar-chart"), "analyses")
+  sidebar_menu(
+    menu_item("Menu 1", bsicon("tree"), "menu1"),
+    menu_item("Analyses", bsicon("bar-chart"), "analyses")
+  )
 )
 
 body <- dashboard_body(

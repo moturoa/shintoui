@@ -28,6 +28,9 @@ dashboard_header <- function(title = "Shinto app framework",
     rightUi = tagList(...,
 
 
+                      tags$li(class="dropdown",tags$div(id = "clock",
+                                                        style="padding: 0.5rem;")),
+
                       tags$li(class = "nav-item dropdown",
 
                               # About Menu
@@ -69,12 +72,11 @@ dashboard_header <- function(title = "Shinto app framework",
 
 #' Make a sidebar for a Shinto app
 #' @param \dots All arguments passed to bs4Dash::sidebarMenu
+#' @rdname dashboard_sidebar
 #' @export
 dashboard_sidebar <- function(...){
   bs4Dash::dashboardSidebar(skin = "light",
-    bs4Dash::sidebarMenu(
-      ...
-    ),
+    ...,
     tags$div(
       style = "position: fixed; bottom: 16px; left: 16px;",
       tags$img(src = "shintoui_assets/logo/logoshintolabs96.png",
@@ -82,6 +84,35 @@ dashboard_sidebar <- function(...){
     )
   )
 }
+
+#' Side bar menu
+#' @rdname dashboard_sidebar
+sidebar_menu <- function(...){
+  bs4Dash::sidebarMenu(
+    ...
+  )
+}
+
+#' Render a dashboard menu
+#' @rdname dashboard_sidebar
+#' @export
+render_menu <- function(...){
+
+  bs4Dash::renderMenu(...)
+
+}
+
+#' Render a dashboard menu
+#' @rdname dashboard_sidebar
+#' @export
+sidebar_menuoutput <- function(...){
+  bs4Dash::sidebarMenuOutput(...)
+}
+
+
+
+
+
 
 #' Make a Menu item for a Shinto app
 #' @param text Text to be displayed in the menu
@@ -206,17 +237,6 @@ dashboard_page <- function(header, sidebar, body, ...){
   )
 
 }
-
-
-
-#' Render a dashboard menu
-#' @export
-render_menu <- function(...){
-
-  bs4Dash::renderMenu(...)
-
-}
-
 
 
 

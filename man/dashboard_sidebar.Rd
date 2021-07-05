@@ -2,13 +2,28 @@
 % Please edit documentation in R/wrappers.R
 \name{dashboard_sidebar}
 \alias{dashboard_sidebar}
+\alias{sidebar_menu}
+\alias{render_menu}
+\alias{sidebar_menuoutput}
 \title{Make a sidebar for a Shinto app}
 \usage{
 dashboard_sidebar(...)
+
+sidebar_menu(...)
+
+render_menu(...)
+
+sidebar_menuoutput(...)
 }
 \arguments{
 \item{\dots}{All arguments passed to bs4Dash::sidebarMenu}
 }
 \description{
 Make a sidebar for a Shinto app
+
+Side bar menu
+
+Render a dashboard menu
+
+Render a dashboard menu
 }
