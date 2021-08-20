@@ -10,7 +10,7 @@ devtools::install_github("moturoa/shintoui")
 
 ## Example
 
-A complete [example application can be found from this link]().
+A complete [example application can be found from this link](https://bitbucket.org/shintolabs/shintoappframework2/src/master/).
 
 
 ## Using shintoui
@@ -50,6 +50,7 @@ In your application, choose a sensible app user name (for example 'wbm_dev', 'li
 
 - You can still use shiny page elements, including: `column`, `fluidRow`, `actionButton`, and so on. Just don't use anything from `shinydashboard` or `shinydashboardPlus` - there are many CSS conflicts which will mess up the UI completely.
 
+- Always use `shintoui::box` to place content inside a module. Never place content directly in `fluidRow` or similar, use the box which can be customized. For a box with tabs, use `shintoui::tab_box`.
 
 
 ## Contact

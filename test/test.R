@@ -80,7 +80,31 @@ body <- dashboard_body(
 
                leafletOutput("mapout"),
                actionButton("btn1", "Button", class = "btn-primary", icon = bsicon("check"))
+             ),
+
+             shintoui::box(
+               title = "Een box met een tabset_panel",
+               icon = bsicon("bug-fill"),
+               solidHeader = TRUE,
+               status = "success",
+
+
+               tabset_panel(
+                 tab_panel("Tab 1", tags$p("content")),
+                 tab_panel("Tab 2", tags$p("content")),
+                 tab_panel("Tab 3", tags$p("content"))
+               )
+             ),
+
+             shintoui::tab_box(title = "Een tab_box",
+
+               tab_panel("Tab 1", tags$p("content")),
+               tab_panel("Tab 2", tags$p("content")),
+               tab_panel("Tab 3", tags$p("content"))
              )
+
+
+
     )
   )
 )
