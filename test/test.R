@@ -3,6 +3,8 @@ library(shintoui)
 library(glue)
 library(leaflet)
 library(DT)
+library(ggplot2)
+library(dplyr)
 
 .info <- shintoshiny::read_application_info()
 
@@ -41,7 +43,7 @@ body <- dashboard_body(
                shintoui::box(
                  title = "Status / buttons",
                  icon = bsicon("bookmark-fill"),
-                 width = 6,
+                 width = 12,
                  closable = TRUE,
 
                  tags$div(style = "padding: 24px;", actionButton("btn1", "Primary", class = "btn-primary", icon = bsicon("person-check"))),
@@ -71,37 +73,54 @@ body <- dashboard_body(
              ),
     shintoui::tab_item("analyses",
 
-             shintoui::box(
-               title = "Locaties",
-               icon = bsicon("geo-alt-fill"),
-               solidHeader = TRUE,
-               status = "success",
-               closable = TRUE,
+              fluidRow(
+                  column(6,
+                         shintoui::box(
+                           width = 12,
+                           title = "Locaties",
+                           icon = bsicon("geo-alt-fill"),
+                           solidHeader = TRUE,
+                           status = "success",
+                           closable = TRUE,
 
-               leafletOutput("mapout"),
-               actionButton("btn1", "Button", class = "btn-primary", icon = bsicon("check"))
-             ),
+                           leafletOutput("mapout"),
+                           actionButton("btn1", "Button", class = "btn-primary", icon = bsicon("check"))
+                         ),
 
-             shintoui::box(
-               title = "Een box met een tabset_panel",
-               icon = bsicon("bug-fill"),
-               solidHeader = TRUE,
-               status = "success",
+                         shintoui::box(
+                           title = "Een box met een tabset_panel",
+                           width = 12,
+                           icon = bsicon("bug-fill"),
+                           solidHeader = TRUE,
+                           status = "success",
 
 
-               tabset_panel(
-                 tab_panel("Tab 1", tags$p("content")),
-                 tab_panel("Tab 2", tags$p("content")),
-                 tab_panel("Tab 3", tags$p("content"))
-               )
-             ),
+                           tabset_panel(
+                             tab_panel("Tab 1", tags$p("content")),
+                             tab_panel("Tab 2", tags$p("content")),
+                             tab_panel("Tab 3", tags$p("content"))
+                           )
+                         )
 
-             shintoui::tab_box(title = "Een tab_box",
+                  ),
+                  column(6,
 
-               tab_panel("Tab 1", tags$p("content")),
-               tab_panel("Tab 2", tags$p("content")),
-               tab_panel("Tab 3", tags$p("content"))
-             )
+                         shintoui::plotBoxUI("plot1", "Een grafiekje titel", width = 12),
+                         shintoui::tab_box(title = "Een tab_box", width = 12,
+
+                                           tab_panel("Tab 1", tags$p("content")),
+                                           tab_panel("Tab 2", tags$p("content")),
+                                           tab_panel("Tab 3", tags$p("content"))
+                         )
+
+                  )
+              )
+
+
+
+
+
+
 
 
 
@@ -131,6 +150,21 @@ server <- function(input, output, session){
     shintoui::datatafel(mtcars)
 
   })
+
+
+  callModule(shintoui::plotBox, "plot1", data = reactive(mtcars),
+
+             plot_function = function(data){
+               ggplot(mtcars, aes(x = wt, y = disp)) +
+                 geom_point(size = 3) +
+                 theme_minimal()
+             },
+
+             table_function=  function(data){
+               dplyr::select(data, wt, disp) %>% head(10)
+             }
+
+             )
 
 }
 
