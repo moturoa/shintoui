@@ -37,12 +37,26 @@ body <- dashboard_body(
 
                  tags$p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dictum urna in tempus viverra. Fusce eleifend, urna eu fermentum tincidunt, nisi felis consectetur ex, eu ornare lorem ipsum ut dui. Curabitur accumsan luctus lectus, eget suscipit est hendrerit quis. Orci varius natoque penatibus et magnis dis parturient montes,
                         nascetur ridiculus mus. Morbi interdum ultricies risus, non viverra sem aliquam ac.")
+               ),
+               shintoui::box(
+                 title = "Status / buttons",
+                 icon = bsicon("bookmark-fill"),
+                 width = 6,
+                 closable = TRUE,
+
+                 tags$div(style = "padding: 24px;", actionButton("btn1", "Primary", class = "btn-primary", icon = bsicon("person-check"))),
+                 tags$div(style = "padding: 24px;", actionButton("btn1", "Secondary", class = "btn-secondary", icon = bsicon("exclamation-diamond"))),
+                 tags$div(style = "padding: 24px;", actionButton("btn1", "Success", class = "btn-success", icon = bsicon("check"))),
+                 tags$div(style = "padding: 24px;", actionButton("btn1", "Info", class = "btn-info", icon = bsicon("question-circle"))),
+                 tags$div(style = "padding: 24px;", actionButton("btn1", "Light", class = "btn-light", icon = bsicon("exclamation-diamond"))),
+                 tags$div(style = "padding: 24px;", actionButton("btn1", "Warning", class = "btn-warning", icon = bsicon("exclamation-diamond"))),
+                 tags$div(style = "padding: 24px;", actionButton("btn1", "Danger", class = "btn-danger", icon = bsicon("exclamation-diamond")))
                )
               ),
               column(6,
 
                shintoui::box(
-                 title = "Auto's",
+                 title = "Datatable",
                  icon = bsicon("car"),
                  width = 12,
                  closable = TRUE,
@@ -54,8 +68,6 @@ body <- dashboard_body(
                )
               )
             )
-
-
              ),
     shintoui::tab_item("analyses",
 
