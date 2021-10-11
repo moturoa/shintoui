@@ -157,6 +157,9 @@ dashboard_body <- function(...,
 
 
     shinyjs::useShinyjs(),
+    shinyjs:::extendShinyjs(text = "shinyjs.collapse = function(boxid) {
+                    $('#' + boxid).closest('.card').find('[data-card-widget=collapse]').click();}",
+                    functions = "collapse"),
     shinytoastr::useToastr(),
 
     # Nodig voor app info dropdown
@@ -184,6 +187,13 @@ box <- function(title = "",  ..., icon = NULL){
 
   bs4Dash::box(title = tagList(icon, title), ...)
 
+}
+
+#' Minimize/maximize a box
+#' @param id Box id
+#' @export
+toggle_box <- function(id){
+  js$collapse(id)
 }
 
 #' Various tab item, menu, wrapper functions
