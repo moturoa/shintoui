@@ -27,11 +27,12 @@ userLogoutModule <- function(input, output, session, username = "unknown"){
                                    text = glue::glue("Ingelogd als {username}"),
                                    icon("user")
                                  ),
-                                 bs4Dash::notificationItem(
-                                   text = "Log uit",
-                                   shiny::icon("sign-out"),
-                                   href="__logout__"
-                                 )
+                                bs4Dash::notificationItem(
+                                  text = "Druk op F5 om de applicatie te herladen", icon = shiny::icon("sync")
+                                ),
+                                bs4Dash::notificationItem(
+                                  text = "Sluit het tabblad om de applicatie te sluiten", icon = shiny::icon("window-close")
+                                )
     )
   })
 

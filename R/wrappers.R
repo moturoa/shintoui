@@ -60,12 +60,20 @@ dashboard_header <- function(title = "Shinto app framework",
                                                    icon =  bsicon("person-circle"),
                                                    headerText = textOutput("shintoui-txt_username", inline = TRUE),
                                                    badgeStatus = NULL,
-                                                   bs4Dash::notificationItem(
-                                                     text = "Log uit",
-                                                     bsicon("box-arrow-right"),
-                                                     href="__logout__"
-                                                   )
+                                                   
+                                            
+                                            tags$a(class = "dropdown-item", href = "",
+                                                   shiny::icon("sync"),
+                                                   "Klik om te herladen"
+                                                   ),
+                                            tags$div(class = "dropdown-divider"),
+                                            tags$a(class = "dropdown-item", href = "",
+                                                   onclick = "window.close();",
+                                                   shiny::icon("window-close"),
+                                                   "Sluit de applicatie"
+                                            )
                       )
+                                            
                       )
   )
 }
