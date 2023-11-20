@@ -1,5 +1,8 @@
 ![](https://badgen.net/badge/shintolabs/utility/purple)
-# shintoui: all the UI choices for Shinto apps
+# shintoui: bootstrap4 UI voor shinto applicaties
+
+Wrapper around the `bs4Dash` package, with house style settings and easier to remember names.
+
 
 
 ## Installation

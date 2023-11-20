@@ -27,7 +27,6 @@ dashboard_header <- function(title = "Shinto app framework",
 
     rightUi = tagList(...,
 
-
                       tags$li(class="dropdown",tags$div(id = "clock",
                                                         style="padding: 0.5rem;")),
 
@@ -61,7 +60,6 @@ dashboard_header <- function(title = "Shinto app framework",
                                                    headerText = textOutput("shintoui-txt_username", inline = TRUE),
                                                    badgeStatus = NULL,
                                                    
-                                            
                                             tags$a(class = "dropdown-item", href = "",
                                                    shiny::icon("sync"),
                                                    "Klik om te herladen"
